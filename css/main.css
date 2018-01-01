@@ -1,0 +1,30 @@
+body, html {
+    margin: 0;
+    padding: 0;
+}
+
+/* 
+.warp {
+    border: 1px rgb(200,200,200) solid;
+}
+
+.container {
+    
+} */
+
+.userMenu {
+    display: inline-block;    
+    width: 25%;
+    height: 100%;
+}
+
+.dataWrap {
+    display: inline-block;
+    width: 74%;
+    height: 100%;
+}
+
+.wrap {
+    width: 100%;
+    height: 100%;
+}
