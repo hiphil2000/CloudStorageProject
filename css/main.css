@@ -3,28 +3,81 @@ body, html {
     padding: 0;
 }
 
-/* 
-.warp {
-    border: 1px rgb(200,200,200) solid;
-}
-
-.container {
-    
-} */
-
-.userMenu {
-    display: inline-block;    
-    width: 25%;
-    height: 100%;
-}
-
-.dataWrap {
-    display: inline-block;
-    width: 74%;
-    height: 100%;
-}
-
-.wrap {
+.entireWrap {
     width: 100%;
     height: 100%;
+}
+
+.entireWrap > .userMenu, .dataMenu{
+    display: inline-block;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    height: 100%;
+    border: 1px rgb(150,150,150) solid;
+}
+
+.userMenu {
+    width: 25%;
+    text-align: center;
+    float:left;
+}
+
+.dataMenu {
+    background: rgb(200,200,200);
+    width: 75%;
+}
+
+.userProfileContainer {
+    width: 80%;
+    height: 35%;
+    position: relative;
+    margin : 5% auto;
+    text-align: center;
+}
+
+#storageRemain {
+    position: absolute;
+    border: none;
+    left:0;
+    width: calc(25% - 1px);
+    height: 100%;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+}
+
+#profileImage {
+    margin: 0 auto;
+
+}
+
+#profileImage img {
+    width: 150%;
+    position: relative;
+    left:50%;
+    top:50%;
+    transform: translate(-50%,-50%);
+    transition: -webkit-filter ease-in-out .25s, filter ease-in-out .25s;
+}
+
+#profileImage img:hover {
+    -webkit-filter: blur(3px) brightness(70%);
+    filter: blur(3px) brightness(70%);
+}
+
+.titleBox {
+    height: 45px;
+    background: white;
+}
+
+hr {
+    margin : 5%;
+}
+
+.middleImage {
+    width: 70%;
+    height: 70%;
+    border-radius: 70%;
+    overflow: hidden;
 }
