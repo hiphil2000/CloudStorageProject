@@ -14,6 +14,7 @@ namespace WindowsFormsApp2
 {
     public partial class Main : Form
     {
+        Db db = new Db();
         private Point mousePoint;
         bool canLogin = false;
         public Main()
@@ -99,6 +100,12 @@ namespace WindowsFormsApp2
         private void contextMenuStrip1_Opening(object sender, CancelEventArgs e)
         {
 
+        }
+
+        private void Main_Load(object sender, EventArgs e)
+        {
+            Bitmap profilePic = db.loadImage(1);
+            pictureBox1.Image = profilePic;
         }
     }
 }

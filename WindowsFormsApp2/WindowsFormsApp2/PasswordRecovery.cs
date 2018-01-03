@@ -110,7 +110,9 @@ namespace WindowsFormsApp2
 
                     SmtpServer.Send(mail);
                     MessageBox.Show("번호가 발송되었습니다.", "알림");
+                    id.Enabled = false;
                     verifyNumber.Enabled = true;
+                    send.Enabled = false;
                 }
                 catch (Exception ex)
                 {
@@ -142,7 +144,8 @@ namespace WindowsFormsApp2
                 MessageBox.Show("바꿀 비밀번호를 입력하십시오.", "알림");
                 password.Visible = true;
                 passwordSet.Visible = true;
-
+                verifyNumber.Enabled = false;
+                accept.Enabled = false;
             }
             else
             {
@@ -157,6 +160,14 @@ namespace WindowsFormsApp2
                 passwordSet.Enabled = false;
             else
                 passwordSet.Enabled = true;
+        }
+
+        private void passwordSet_Click(object sender, EventArgs e)
+        {
+            Db d = new Db();
+            d.updatePassword(id.Text, password.Text);
+                MessageBox.Show("비밀번호가 변경되었습니다.", "성공");
+            this.Close();
         }
     }
 }

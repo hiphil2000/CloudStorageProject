@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Net.NetworkInformation;
 using System.Resources;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using WindowsFormsApp2.Properties;
 
@@ -13,7 +14,7 @@ namespace WindowsFormsApp2
         private Point mousePoint;
         bool canRegister = false;
         Dictionary<string, bool> isNotModified;
-
+        bool valid = false;
         public register()
         {
             InitializeComponent();
@@ -67,6 +68,7 @@ namespace WindowsFormsApp2
             this.Close();
         }
 
+
         private void bunifuFlatButton1_Click(object sender, EventArgs e)
         {
             if (!canRegister)
@@ -74,9 +76,17 @@ namespace WindowsFormsApp2
                 MessageBox.Show("연결에 문제가 있어 로그인하지 못했습니다." + Environment.NewLine + "좌측 상단의 아이콘을 참조하세요.", "알림");
                 return;
             }
+            if (valid && id.Text.Equals("") && pw.Text.Equals("") && name.Text.Equals("") && email.Text.Equals("") && phone2.Text.Equals("") && phone3.Text.Equals("") && phone1.selectedIndex < 0) 
+            {
+                MessageBox.Show("모든 정보를 입력하세요.");
+                return;
+            }
+
 
             Db d = new Db();
-            d.register(id.Text, pw.Text, name.Text, email.Text, phone1.selectedValue + "-" + phone2 + "-" + phone3);
+            d.register(id.Text, pw.Text, name.Text, email.Text, phone1.selectedValue + "-" + phone2.Text + "-" + phone3.Text);
+            MessageBox.Show("회원가입이 완료되었습니다. 로그인 해 주십시오.", "성공");
+            this.Close();
         }
 
 
@@ -113,6 +123,22 @@ namespace WindowsFormsApp2
             pictureBox3.Refresh();
             pictureBox3.Visible = true;
 
+        }
+
+        private void email_OnValueChanged(object sender, EventArgs e)
+        {
+            valid = Regex.IsMatch(email.Text, "[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?");
+            if (!valid)
+            {
+                email.LineFocusedColor = Color.FromArgb(255, 128, 128);
+                toolTip1.SetToolTip(pictureBox2, "이메일 형식이 올바르지 않습니다.");
+                pictureBox2.Visible = true;
+            }
+            else
+            {
+                email.LineFocusedColor = Color.FromArgb(128, 255, 128);
+                toolTip1.SetToolTip(pictureBox2, "이메일 형식이 올바릅니다.");
+            }
         }
     }
 }

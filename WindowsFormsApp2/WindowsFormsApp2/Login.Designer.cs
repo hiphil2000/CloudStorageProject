@@ -204,6 +204,7 @@
             this.pw.Size = new System.Drawing.Size(205, 33);
             this.pw.TabIndex = 15;
             this.pw.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.pw.OnValueChanged += new System.EventHandler(this.pw_OnValueChanged);
             // 
             // id
             // 

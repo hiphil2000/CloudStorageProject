@@ -44,15 +44,17 @@
             this.phone2 = new Bunifu.Framework.UI.BunifuMaterialTextbox();
             this.phone3 = new Bunifu.Framework.UI.BunifuMaterialTextbox();
             this.phone1 = new Bunifu.Framework.UI.BunifuDropdown();
-            this.bunifuFlatButton1 = new Bunifu.Framework.UI.BunifuFlatButton();
-            this.bunifuFlatButton2 = new Bunifu.Framework.UI.BunifuFlatButton();
+            this.registerButton = new Bunifu.Framework.UI.BunifuFlatButton();
+            this.cancel = new Bunifu.Framework.UI.BunifuFlatButton();
             this.name = new Bunifu.Framework.UI.BunifuMaterialTextbox();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.closeButton)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
@@ -177,7 +179,7 @@
             this.pw.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.pw.HintForeColor = System.Drawing.Color.Gray;
             this.pw.HintText = "Password";
-            this.pw.isPassword = false;
+            this.pw.isPassword = true;
             this.pw.LineFocusedColor = System.Drawing.Color.FromArgb(((int)(((byte)(165)))), ((int)(((byte)(92)))), ((int)(((byte)(85)))));
             this.pw.LineIdleColor = System.Drawing.Color.Gray;
             this.pw.LineMouseHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(165)))), ((int)(((byte)(92)))), ((int)(((byte)(85)))));
@@ -208,6 +210,7 @@
             this.email.Size = new System.Drawing.Size(240, 33);
             this.email.TabIndex = 14;
             this.email.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.email.OnValueChanged += new System.EventHandler(this.email_OnValueChanged);
             // 
             // phone2
             // 
@@ -272,75 +275,75 @@
             this.phone1.Size = new System.Drawing.Size(73, 42);
             this.phone1.TabIndex = 15;
             // 
-            // bunifuFlatButton1
+            // registerButton
             // 
-            this.bunifuFlatButton1.Activecolor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(139)))), ((int)(((byte)(87)))));
-            this.bunifuFlatButton1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(139)))), ((int)(((byte)(87)))));
-            this.bunifuFlatButton1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.bunifuFlatButton1.BorderRadius = 0;
-            this.bunifuFlatButton1.ButtonText = "Register";
-            this.bunifuFlatButton1.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.bunifuFlatButton1.DisabledColor = System.Drawing.Color.Gray;
-            this.bunifuFlatButton1.Iconcolor = System.Drawing.Color.Transparent;
-            this.bunifuFlatButton1.Iconimage = ((System.Drawing.Image)(resources.GetObject("bunifuFlatButton1.Iconimage")));
-            this.bunifuFlatButton1.Iconimage_right = null;
-            this.bunifuFlatButton1.Iconimage_right_Selected = null;
-            this.bunifuFlatButton1.Iconimage_Selected = null;
-            this.bunifuFlatButton1.IconMarginLeft = 0;
-            this.bunifuFlatButton1.IconMarginRight = 0;
-            this.bunifuFlatButton1.IconRightVisible = true;
-            this.bunifuFlatButton1.IconRightZoom = 0D;
-            this.bunifuFlatButton1.IconVisible = true;
-            this.bunifuFlatButton1.IconZoom = 90D;
-            this.bunifuFlatButton1.IsTab = false;
-            this.bunifuFlatButton1.Location = new System.Drawing.Point(72, 385);
-            this.bunifuFlatButton1.Name = "bunifuFlatButton1";
-            this.bunifuFlatButton1.Normalcolor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(139)))), ((int)(((byte)(87)))));
-            this.bunifuFlatButton1.OnHovercolor = System.Drawing.Color.FromArgb(((int)(((byte)(36)))), ((int)(((byte)(129)))), ((int)(((byte)(77)))));
-            this.bunifuFlatButton1.OnHoverTextColor = System.Drawing.Color.White;
-            this.bunifuFlatButton1.selected = false;
-            this.bunifuFlatButton1.Size = new System.Drawing.Size(112, 44);
-            this.bunifuFlatButton1.TabIndex = 16;
-            this.bunifuFlatButton1.Text = "Register";
-            this.bunifuFlatButton1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.bunifuFlatButton1.Textcolor = System.Drawing.Color.White;
-            this.bunifuFlatButton1.TextFont = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.bunifuFlatButton1.Click += new System.EventHandler(this.bunifuFlatButton1_Click);
+            this.registerButton.Activecolor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(139)))), ((int)(((byte)(87)))));
+            this.registerButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(139)))), ((int)(((byte)(87)))));
+            this.registerButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.registerButton.BorderRadius = 0;
+            this.registerButton.ButtonText = "Register";
+            this.registerButton.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.registerButton.DisabledColor = System.Drawing.Color.Gray;
+            this.registerButton.Iconcolor = System.Drawing.Color.Transparent;
+            this.registerButton.Iconimage = ((System.Drawing.Image)(resources.GetObject("registerButton.Iconimage")));
+            this.registerButton.Iconimage_right = null;
+            this.registerButton.Iconimage_right_Selected = null;
+            this.registerButton.Iconimage_Selected = null;
+            this.registerButton.IconMarginLeft = 0;
+            this.registerButton.IconMarginRight = 0;
+            this.registerButton.IconRightVisible = true;
+            this.registerButton.IconRightZoom = 0D;
+            this.registerButton.IconVisible = true;
+            this.registerButton.IconZoom = 90D;
+            this.registerButton.IsTab = false;
+            this.registerButton.Location = new System.Drawing.Point(72, 385);
+            this.registerButton.Name = "registerButton";
+            this.registerButton.Normalcolor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(139)))), ((int)(((byte)(87)))));
+            this.registerButton.OnHovercolor = System.Drawing.Color.FromArgb(((int)(((byte)(36)))), ((int)(((byte)(129)))), ((int)(((byte)(77)))));
+            this.registerButton.OnHoverTextColor = System.Drawing.Color.White;
+            this.registerButton.selected = false;
+            this.registerButton.Size = new System.Drawing.Size(112, 44);
+            this.registerButton.TabIndex = 16;
+            this.registerButton.Text = "Register";
+            this.registerButton.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.registerButton.Textcolor = System.Drawing.Color.White;
+            this.registerButton.TextFont = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.registerButton.Click += new System.EventHandler(this.bunifuFlatButton1_Click);
             // 
-            // bunifuFlatButton2
+            // cancel
             // 
-            this.bunifuFlatButton2.Activecolor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.bunifuFlatButton2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.bunifuFlatButton2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.bunifuFlatButton2.BorderRadius = 0;
-            this.bunifuFlatButton2.ButtonText = "Cancel";
-            this.bunifuFlatButton2.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.bunifuFlatButton2.DisabledColor = System.Drawing.Color.Gray;
-            this.bunifuFlatButton2.Iconcolor = System.Drawing.Color.Transparent;
-            this.bunifuFlatButton2.Iconimage = ((System.Drawing.Image)(resources.GetObject("bunifuFlatButton2.Iconimage")));
-            this.bunifuFlatButton2.Iconimage_right = null;
-            this.bunifuFlatButton2.Iconimage_right_Selected = null;
-            this.bunifuFlatButton2.Iconimage_Selected = null;
-            this.bunifuFlatButton2.IconMarginLeft = 0;
-            this.bunifuFlatButton2.IconMarginRight = 0;
-            this.bunifuFlatButton2.IconRightVisible = true;
-            this.bunifuFlatButton2.IconRightZoom = 0D;
-            this.bunifuFlatButton2.IconVisible = true;
-            this.bunifuFlatButton2.IconZoom = 90D;
-            this.bunifuFlatButton2.IsTab = false;
-            this.bunifuFlatButton2.Location = new System.Drawing.Point(200, 385);
-            this.bunifuFlatButton2.Name = "bunifuFlatButton2";
-            this.bunifuFlatButton2.Normalcolor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.bunifuFlatButton2.OnHovercolor = System.Drawing.Color.FromArgb(((int)(((byte)(162)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.bunifuFlatButton2.OnHoverTextColor = System.Drawing.Color.White;
-            this.bunifuFlatButton2.selected = false;
-            this.bunifuFlatButton2.Size = new System.Drawing.Size(112, 44);
-            this.bunifuFlatButton2.TabIndex = 16;
-            this.bunifuFlatButton2.Text = "Cancel";
-            this.bunifuFlatButton2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.bunifuFlatButton2.Textcolor = System.Drawing.Color.White;
-            this.bunifuFlatButton2.TextFont = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.bunifuFlatButton2.Click += new System.EventHandler(this.bunifuFlatButton2_Click);
+            this.cancel.Activecolor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.cancel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.cancel.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.cancel.BorderRadius = 0;
+            this.cancel.ButtonText = "Cancel";
+            this.cancel.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.cancel.DisabledColor = System.Drawing.Color.Gray;
+            this.cancel.Iconcolor = System.Drawing.Color.Transparent;
+            this.cancel.Iconimage = ((System.Drawing.Image)(resources.GetObject("cancel.Iconimage")));
+            this.cancel.Iconimage_right = null;
+            this.cancel.Iconimage_right_Selected = null;
+            this.cancel.Iconimage_Selected = null;
+            this.cancel.IconMarginLeft = 0;
+            this.cancel.IconMarginRight = 0;
+            this.cancel.IconRightVisible = true;
+            this.cancel.IconRightZoom = 0D;
+            this.cancel.IconVisible = true;
+            this.cancel.IconZoom = 90D;
+            this.cancel.IsTab = false;
+            this.cancel.Location = new System.Drawing.Point(200, 385);
+            this.cancel.Name = "cancel";
+            this.cancel.Normalcolor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.cancel.OnHovercolor = System.Drawing.Color.FromArgb(((int)(((byte)(162)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.cancel.OnHoverTextColor = System.Drawing.Color.White;
+            this.cancel.selected = false;
+            this.cancel.Size = new System.Drawing.Size(112, 44);
+            this.cancel.TabIndex = 16;
+            this.cancel.Text = "Cancel";
+            this.cancel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.cancel.Textcolor = System.Drawing.Color.White;
+            this.cancel.TextFont = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cancel.Click += new System.EventHandler(this.bunifuFlatButton2_Click);
             // 
             // name
             // 
@@ -372,14 +375,26 @@
             // 
             this.toolTip1.IsBalloon = true;
             // 
+            // pictureBox2
+            // 
+            this.pictureBox2.Image = global::WindowsFormsApp2.Properties.Resources.questionMark;
+            this.pictureBox2.Location = new System.Drawing.Point(320, 278);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(32, 32);
+            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox2.TabIndex = 17;
+            this.pictureBox2.TabStop = false;
+            this.pictureBox2.Visible = false;
+            // 
             // register
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(215)))), ((int)(((byte)(214)))), ((int)(((byte)(165)))));
             this.ClientSize = new System.Drawing.Size(384, 476);
-            this.Controls.Add(this.bunifuFlatButton2);
-            this.Controls.Add(this.bunifuFlatButton1);
+            this.Controls.Add(this.pictureBox2);
+            this.Controls.Add(this.cancel);
+            this.Controls.Add(this.registerButton);
             this.Controls.Add(this.phone1);
             this.Controls.Add(this.phone3);
             this.Controls.Add(this.phone2);
@@ -398,6 +413,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.closeButton)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -418,11 +434,12 @@
         private Bunifu.Framework.UI.BunifuMaterialTextbox phone2;
         private Bunifu.Framework.UI.BunifuMaterialTextbox phone3;
         private Bunifu.Framework.UI.BunifuDropdown phone1;
-        private Bunifu.Framework.UI.BunifuFlatButton bunifuFlatButton1;
-        private Bunifu.Framework.UI.BunifuFlatButton bunifuFlatButton2;
+        private Bunifu.Framework.UI.BunifuFlatButton registerButton;
+        private Bunifu.Framework.UI.BunifuFlatButton cancel;
         private Bunifu.Framework.UI.BunifuMaterialTextbox name;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.ToolTip toolTip1;
+        private System.Windows.Forms.PictureBox pictureBox2;
     }
 }

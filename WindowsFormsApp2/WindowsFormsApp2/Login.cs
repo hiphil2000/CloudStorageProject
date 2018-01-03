@@ -43,13 +43,19 @@ namespace WindowsFormsApp2
 
         private void button1_Click(object sender, EventArgs e)
         {
-            //임시코드
-            this.Hide();
             Main main;
+            //임시코드
+            /*
+            this.Hide();
             main = new Main();
             main.ShowDialog();
-            return;
-
+            return;*/
+            if(id.Text.Equals("") || pw.Text.Equals(""))
+            {
+                MessageBox.Show("모든 정보를 입력하세요.");
+                return;
+            }
+                
 
             if (!canLogin)
             {
@@ -135,6 +141,11 @@ namespace WindowsFormsApp2
         {
             register r = new register();
             r.ShowDialog();
+        }
+
+        private void pw_OnValueChanged(object sender, EventArgs e)
+        {
+            pw.isPassword = true;
         }
     }
 }
