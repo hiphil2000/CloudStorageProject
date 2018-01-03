@@ -131,7 +131,7 @@
             // 
             this.id.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(185)))), ((int)(((byte)(184)))), ((int)(((byte)(135)))));
             this.id.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.id.Font = new System.Drawing.Font("Century Gothic", 9.75F);
+            this.id.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
             this.id.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.id.HintForeColor = System.Drawing.Color.Gray;
             this.id.HintText = "Email";
@@ -211,7 +211,7 @@
             this.verifyNumber.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(185)))), ((int)(((byte)(184)))), ((int)(((byte)(135)))));
             this.verifyNumber.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.verifyNumber.Enabled = false;
-            this.verifyNumber.Font = new System.Drawing.Font("Century Gothic", 9.75F);
+            this.verifyNumber.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
             this.verifyNumber.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.verifyNumber.HintForeColor = System.Drawing.Color.Gray;
             this.verifyNumber.HintText = "VerifyNumber";
@@ -296,7 +296,7 @@
             // 
             this.password.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(185)))), ((int)(((byte)(184)))), ((int)(((byte)(135)))));
             this.password.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.password.Font = new System.Drawing.Font("Century Gothic", 9.75F);
+            this.password.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
             this.password.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.password.HintForeColor = System.Drawing.Color.Gray;
             this.password.HintText = "Password";
@@ -369,7 +369,7 @@
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "PasswordRecovery";
-            this.Text = "PasswordRecovery";
+            this.Text = " ";
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
