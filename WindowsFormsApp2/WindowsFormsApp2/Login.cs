@@ -1,55 +1,27 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading;
+using System.Net.NetworkInformation;
+using System.Resources;
 using System.Windows.Forms;
+using WindowsFormsApp2.Properties;
 
 namespace WindowsFormsApp2
 {
     public partial class Login : Form
     {
+        Db d;
         private Point mousePoint;
+        bool canLogin = false;
 
         public Login()
         {
             InitializeComponent();
-            
+            d = new Db();
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            db d = new db();
-            textBox1.Text = textBox1.Text.Trim();
-            textBox2.Text = textBox2.Text.Trim();
-            if (d.accCheck(textBox1.Text, textBox2.Text))
-            {
-                DataSet ds = d.select(new[] { "userName" }, "tb_user", "userId = \'" + textBox1.Text + "\'");
-                DataTable dt = new DataTable();
-                dt = ds.Tables["tb_user"];
-                MessageBox.Show(dt.Rows[0][0] + "님 환영합니다.","성공");
-                this.Hide();
-                Main main = new Main();
-                main.ShowDialog();
-            }
-            else
-            {
-                MessageBox.Show("아이디 또는 비밀번호 오류입니다.","오류");
-            }
-        }
-        
-        private void pictureBox1_MouseEnter(object sender, EventArgs e) {
-                            
-        }
 
-        private void pictureBox1_MouseLeave(object sender, EventArgs e)
-        {
-            pictureBox1.BackColor = System.Drawing.Color.Transparent;
-        }
-
+        //taskbar code
         private void panel1_MouseDown(object sender, MouseEventArgs e)
         {
             mousePoint = new Point(e.X, e.Y);
@@ -69,17 +41,100 @@ namespace WindowsFormsApp2
             Application.Exit();
         }
 
+        private void button1_Click(object sender, EventArgs e)
+        {
+            //임시코드
+            this.Hide();
+            Main main;
+            main = new Main();
+            main.ShowDialog();
+            return;
+
+
+            if (!canLogin)
+            {
+                MessageBox.Show("연결에 문제가 있어 로그인하지 못했습니다." + Environment.NewLine + "좌측 상단의 아이콘을 참조하세요.", "알림");
+                return;
+            }
+            id.Text = id.Text.Trim();
+            pw.Text = pw.Text.Trim();
+            if (d.accCheck(id.Text, pw.Text))
+            {
+                DataSet ds = d.select(new[] { "userName" }, "tb_user", "userId = \'" + id.Text + "\'");
+                DataTable dt = new DataTable();
+                dt = ds.Tables["tb_user"];
+                MessageBox.Show(dt.Rows[0][0] + "님 환영합니다.","성공");
+                this.Hide();
+                main = new Main();
+                main.ShowDialog();
+            }
+            else
+            {
+                MessageBox.Show("아이디 또는 비밀번호 오류입니다.","오류");
+            }
+        }
+        
         private void button2_Click(object sender, EventArgs e)
         {
             Application.Exit();
         }
 
-        private void textBox2_KeyDown(object sender, KeyEventArgs e)
+        private void pw_KeyDown(object sender, KeyEventArgs e)
         {
             if(e.KeyCode == Keys.Return)
             {
                 button1_Click(sender, e);
             }
+        }
+
+        private void linkLabel2_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            PasswordRecovery p = new PasswordRecovery();
+            p.ShowDialog();
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            string errorMessage = "";
+            int warningCount = 0;
+            ResourceManager rm = Resources.ResourceManager;
+            /*if(!d.connectChk())
+            {
+                errorMessage += "데이터베이스에 연결하지 못했습니다." + Environment.NewLine;
+                //pictureBox3.BackgroundImage = Properties.Resources.warning;
+                warningCount++;
+                canLogin = false;
+            }*/
+            if (!NetworkInterface.GetIsNetworkAvailable())
+            {
+                errorMessage += "인터넷에 연결하지 못했습니다.";
+                pictureBox3.Image = Properties.Resources.warning;
+                warningCount++;
+                canLogin = false;
+            }
+            if(NetworkInterface.GetIsNetworkAvailable())
+            {
+                errorMessage = "모든 연결상태가 원활합니다.";
+                pictureBox3.Image = Properties.Resources.ok;
+                warningCount = 0;
+                canLogin = true;
+            }
+            toolTip1.SetToolTip(pictureBox3, errorMessage);
+            if(warningCount > 0)
+                warningLable.Text = " " + warningCount + " ";
+            pictureBox3.Refresh();
+            pictureBox3.Visible = true;
+
+        }
+
+        private void Login_Load(object sender, EventArgs e)
+        {
+        }
+
+        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            register r = new register();
+            r.ShowDialog();
         }
     }
 }
