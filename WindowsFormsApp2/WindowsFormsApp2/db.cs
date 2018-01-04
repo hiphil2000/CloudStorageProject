@@ -11,7 +11,7 @@ namespace WindowsFormsApp2
 {
     class Db
     {
-        String connStr = "Server=localhost;Database=db_cloudstorage;Uid=root;Pwd=root;";
+        String connStr = "Server=localhost;Database=db_cloudstorage;Uid=root;Pwd=apmsetup;";
         MySqlConnection conn;
 
         public Db()
@@ -129,6 +129,7 @@ namespace WindowsFormsApp2
             }
             catch (MySqlException ex)
             {
+                Console.WriteLine(ex.StackTrace);
                 return null;
             }
 

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using LiveCharts;
+using LiveCharts.Wpf;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -8,6 +10,7 @@ using System.Net.NetworkInformation;
 using System.Resources;
 using System.Text;
 using System.Windows.Forms;
+using System.Windows.Media;
 using WindowsFormsApp2.Properties;
 
 namespace WindowsFormsApp2
@@ -17,9 +20,18 @@ namespace WindowsFormsApp2
         Db db = new Db();
         private Point mousePoint;
         bool canLogin = false;
-        public Main()
+        Panel prevPanel;
+        public Main(string name)
         {
             InitializeComponent();
+            this.notifyIcon1.Icon = Properties.Resources.icon;
+            this.notifyIcon1.Icon = Properties.Resources.icon;
+            toolTip1.SetToolTip(minimalizeButton, "창 최소화");
+            toolTip1.SetToolTip(closeButton, "창 닫기");
+            this.username.Text = this.username.Text + name + "!";
+            initDashboard();
+            dashBoardPanel.Visible = true;
+            prevPanel = dashBoardPanel;
         }
 
         //taskbar code
@@ -107,6 +119,111 @@ namespace WindowsFormsApp2
         }
 
         private void splitContainer1_Panel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void dashboard_Click(object sender, EventArgs e)
+        {
+            if (prevPanel.Equals(dashBoardPanel))
+                return;
+            
+            prevPanel.Visible = false;
+            prevPanel = dashBoardPanel;
+            dashBoardPanel.Visible = true;
+            initDashboard();
+        }
+
+        private void closeButton_MouseHover(object sender, EventArgs e)
+        {
+            PictureBox pic = (PictureBox)sender;
+            pic.BackColor = System.Drawing.Color.FromArgb(pic.BackColor.R + 30 > 255 ? 255:pic.BackColor.R + 30,
+                pic.BackColor.G + 30 > 255 ? 255 : pic.BackColor.G + 30,
+                pic.BackColor.B + 30 > 255 ? 255 : pic.BackColor.B + 30);
+        }
+
+        private void minimalizeButton_Click(object sender, EventArgs e)
+        {
+            this.WindowState = FormWindowState.Minimized;
+        }
+
+        private void minimalizeButton_MouseLeave(object sender, EventArgs e)
+        {
+            PictureBox pic = (PictureBox)sender;
+            pic.BackColor = System.Drawing.Color.FromArgb(pic.BackColor.R - 30 < 0 ? 0 : pic.BackColor.R - 30,
+                pic.BackColor.G - 30 < 0 ? 0 : pic.BackColor.G - 30,
+                pic.BackColor.B - 30 < 0 ? 0 : pic.BackColor.B - 30);
+        }
+
+        private void flowLayoutPanel1_Paint(object sender, PaintEventArgs e)
+        {
+            
+        }
+
+        private void initDashboard()
+        {
+            Func<ChartPoint, string> labelPoint = chartPoint =>
+              string.Format("{0} ({1:P})", chartPoint.Y, chartPoint.Participation);
+
+            dataStatPie.Series = new SeriesCollection
+            {
+                new PieSeries
+                {
+                    Title = "Files",
+                    Values = new ChartValues<double> {4},
+                    DataLabels = true,
+                    LabelPoint = labelPoint
+                },
+                new PieSeries
+                {
+                    Title = "Documents",
+                    Values = new ChartValues<double> {4},
+                    DataLabels = true,
+                    LabelPoint = labelPoint
+                },
+                new PieSeries
+                {
+                    Title = "Videos",
+                    Values = new ChartValues<double> {6},
+                    DataLabels = true,
+                    LabelPoint = labelPoint
+                },
+                new PieSeries
+                {
+                    Title = "Etc...",
+                    Values = new ChartValues<double> {2},
+                    DataLabels = true,
+                    LabelPoint = labelPoint
+                }
+            };
+
+            dataStatPie.LegendLocation = LegendLocation.Bottom;
+            dataUseageGauge.To = 100;
+            dataUseageGauge.Value = 50;
+            dataUseageGauge.FromColor = Colors.LimeGreen;
+            dataUseageGauge.ToColor = Colors.Red;
+        }
+
+        private void users_Click(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void resource_Click(object sender, EventArgs e)
+        {
+            if (prevPanel.Equals(resourcePanel))
+                return;
+            prevPanel.Visible = false;
+            prevPanel = resourcePanel;
+            resourcePanel.Visible = true;
+        }
+
+        private void bunifuFlatButton1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void pictureBox12_Click(object sender, EventArgs e)
         {
 
         }
