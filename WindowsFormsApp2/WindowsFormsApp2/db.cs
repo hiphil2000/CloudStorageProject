@@ -79,6 +79,38 @@ namespace WindowsFormsApp2
             return null;
         }
 
+        public void uploadFile(string[] filePath, int userSeq)
+        {
+            FileInfo fi;
+            foreach (string file in filePath)
+            {
+                fi = new FileInfo(file);
+                string fileTemp = file.Replace('\\', '/');
+                string filename = fi.Name;
+                long filesize = fi.Length;
+                int height, width;
+
+                try
+                {
+                    conn.Open();
+                    string sql = @"INSERT INTO TB_Data (userSeq, fileName, fileSize, createDate, leastDate, favorateFlag, data, width, height)
+                            VALUES (" + userSeq + ", '" + filename + "', " + filesize + ", NOW(), NOW(), 0,LOAD_FILE" +
+                            "('" + fileTemp + "'), 1, 1)";
+                    Console.WriteLine(sql);
+                    MySqlCommand cmd = new MySqlCommand(sql, conn);
+                    cmd.ExecuteNonQuery();
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.StackTrace);
+                }
+                finally
+                {
+                    conn.Close();
+                }
+            }
+        }
+
         public Bitmap loadImage(int imgID)
         {
 
@@ -151,7 +183,7 @@ namespace WindowsFormsApp2
             {
                 conn.Open();
                 cmd = new MySqlCommand(sql, conn);
-                
+
                 data = cmd.ExecuteReader();
 
                 if (!data.HasRows)
@@ -199,11 +231,12 @@ namespace WindowsFormsApp2
             {
                 conn.Open();
                 string sql = @"INSERT INTO TB_User (userName, userId, userPw, userEmail, userPhone, maxCapacity, registDate)
-                                VALUES('" + name + "\',\'" + id + "\',\'" + pw + "\',\'" + email + "\',\'" + phone + "\', \'1000000000\',\'"+System.DateTime.Now.ToString("yyyy/MM/dd")+"\')";
+                                VALUES('" + name + "\',\'" + id + "\',\'" + pw + "\',\'" + email + "\',\'" + phone + "\', \'1000000000\',\'" + System.DateTime.Now.ToString("yyyy/MM/dd") + "\')";
                 Console.WriteLine(sql);
                 MySqlCommand cmd = new MySqlCommand(sql, conn);
                 cmd.ExecuteNonQuery();
-            } catch(Exception e)
+            }
+            catch (Exception e)
             {
                 Console.WriteLine(e.StackTrace);
             }
@@ -218,7 +251,7 @@ namespace WindowsFormsApp2
             try
             {
                 conn.Open();
-                string sql = @"update tb_user set userPw = '"+password+"' where userEmail = '"+ email +"';";
+                string sql = @"update tb_user set userPw = '" + password + "' where userEmail = '" + email + "';";
                 Console.WriteLine(sql);
                 MySqlCommand cmd = new MySqlCommand(sql, conn);
                 cmd.ExecuteNonQuery();

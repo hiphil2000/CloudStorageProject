@@ -164,6 +164,10 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\Picture.png" />
+    <None Include="Resources\Other.png" />
+    <None Include="Resources\Video.png" />
+    <None Include="Resources\File.png" />
     <None Include="Resources\option.png" />
     <None Include="Resources\Uploads.png" />
     <None Include="Resources\LinkDownloads.png" />
@@ -179,6 +183,8 @@
     <None Include="Resources\Data.png" />
     <None Include="Resources\Downloads.png" />
     <None Include="Resources\Dashboard.png" />
+    <None Include="Resources\Exit.png" />
+    <None Include="Resources\Document.png" />
     <Content Include="Resources\exitBtn.png" />
     <None Include="Resources\image_9Vj_icon.ico" />
   </ItemGroup>

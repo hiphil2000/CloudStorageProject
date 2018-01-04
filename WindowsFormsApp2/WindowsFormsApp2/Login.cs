@@ -66,12 +66,13 @@ namespace WindowsFormsApp2
             pw.Text = pw.Text.Trim();
             if (d.accCheck(id.Text, pw.Text))
             {
-                DataSet ds = d.select(new[] { "userName" }, "tb_user", "userId = \'" + id.Text + "\'");
+                DataSet ds = d.select(new[] { "userName, userSeq" }, "tb_user", "userId = \'" + id.Text + "\'");
                 DataTable dt = new DataTable();
                 dt = ds.Tables["tb_user"];
                 MessageBox.Show(dt.Rows[0][0] + "님 환영합니다.","성공");
+                dt = ds.Tables["tb_user"];
                 this.Hide();
-                main = new Main(dt.Rows[0][0].ToString());
+                main = new Main(dt.Rows[0][0].ToString(), int.Parse(dt.Rows[0][1].ToString()));
                 main.ShowDialog();
             }
             else
