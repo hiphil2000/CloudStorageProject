@@ -11,7 +11,7 @@ namespace WindowsFormsApp2
 {
     class Db
     {
-        String connStr = "Server=10.26.139.201;Database=db_cloudstorage;Uid=root;Pwd=apmsetup;CharSet=utf8";
+        String connStr = "Server=localhost;Database=db_cloudstorage;Uid=root;Pwd=root;CharSet=utf8";
         MySqlConnection conn;
 
         public Db()

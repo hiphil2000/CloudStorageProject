@@ -21,9 +21,6 @@ C:\Users\emt00\Documents\GitHub\CloudStorageProject\WindowsFormsApp2\WindowsForm
 C:\Users\emt00\Documents\GitHub\CloudStorageProject\WindowsFormsApp2\WindowsFormsApp2\bin\Debug\MySql.Data.xml
 C:\Users\emt00\Documents\GitHub\CloudStorageProject\WindowsFormsApp2\WindowsFormsApp2\obj\Debug\WindowsFormsApp2.register.resources
 C:\Users\emt00\Documents\GitHub\CloudStorageProject\WindowsFormsApp2\WindowsFormsApp2\obj\Debug\WindowsFormsApp2.PasswordRecovery.resources
-C:\Users\AAA\Documents\GitHub\CloudStorageProject\WindowsFormsApp2\WindowsFormsApp2\bin\Debug\WindowsFormsApp2.exe.config
-C:\Users\AAA\Documents\GitHub\CloudStorageProject\WindowsFormsApp2\WindowsFormsApp2\bin\Debug\WindowsFormsApp2.exe
-C:\Users\AAA\Documents\GitHub\CloudStorageProject\WindowsFormsApp2\WindowsFormsApp2\bin\Debug\WindowsFormsApp2.pdb
 C:\Users\AAA\Documents\GitHub\CloudStorageProject\WindowsFormsApp2\WindowsFormsApp2\bin\Debug\MySql.Data.xml
 C:\Users\AAA\Documents\GitHub\CloudStorageProject\WindowsFormsApp2\WindowsFormsApp2\obj\Debug\WindowsFormsApp2.csprojResolveAssemblyReference.cache
 C:\Users\AAA\Documents\GitHub\CloudStorageProject\WindowsFormsApp2\WindowsFormsApp2\obj\Debug\WindowsFormsApp2.Main.resources
@@ -33,8 +30,6 @@ C:\Users\AAA\Documents\GitHub\CloudStorageProject\WindowsFormsApp2\WindowsFormsA
 C:\Users\AAA\Documents\GitHub\CloudStorageProject\WindowsFormsApp2\WindowsFormsApp2\obj\Debug\WindowsFormsApp2.register.resources
 C:\Users\AAA\Documents\GitHub\CloudStorageProject\WindowsFormsApp2\WindowsFormsApp2\obj\Debug\WindowsFormsApp2.csproj.GenerateResource.Cache
 C:\Users\AAA\Documents\GitHub\CloudStorageProject\WindowsFormsApp2\WindowsFormsApp2\obj\Debug\WindowsFormsApp2.csproj.CoreCompileInputs.cache
-C:\Users\AAA\Documents\GitHub\CloudStorageProject\WindowsFormsApp2\WindowsFormsApp2\obj\Debug\WindowsFormsApp2.exe
-C:\Users\AAA\Documents\GitHub\CloudStorageProject\WindowsFormsApp2\WindowsFormsApp2\obj\Debug\WindowsFormsApp2.pdb
 C:\Users\AAA\Documents\GitHub\CloudStorageProject\WindowsFormsApp2\WindowsFormsApp2\bin\Debug\Bunifu_UI_v1.5.3.dll
 C:\Users\AAA\Documents\GitHub\CloudStorageProject\WindowsFormsApp2\WindowsFormsApp2\obj\Debug\WindowsFormsApp2.Form1.resources
 C:\Users\emt00\Documents\GitHub\CloudStorageProject\WindowsFormsApp2\WindowsFormsApp2\obj\Debug\WindowsFormsApp2.Form1.resources
@@ -53,3 +48,18 @@ C:\Users\emt00\Documents\GitHub\CloudStorageProject\WindowsFormsApp2\WindowsForm
 C:\Users\emt00\Documents\GitHub\CloudStorageProject\WindowsFormsApp2\WindowsFormsApp2\bin\Debug\CloudStorage.pdb
 C:\Users\emt00\Documents\GitHub\CloudStorageProject\WindowsFormsApp2\WindowsFormsApp2\obj\Debug\CloudStorage.exe
 C:\Users\emt00\Documents\GitHub\CloudStorageProject\WindowsFormsApp2\WindowsFormsApp2\obj\Debug\CloudStorage.pdb
+C:\Users\AAA\Documents\GitHub\CloudStorageProject\WindowsFormsApp2\WindowsFormsApp2\bin\Debug\CloudStorage.exe.config
+C:\Users\AAA\Documents\GitHub\CloudStorageProject\WindowsFormsApp2\WindowsFormsApp2\bin\Debug\CloudStorage.exe
+C:\Users\AAA\Documents\GitHub\CloudStorageProject\WindowsFormsApp2\WindowsFormsApp2\bin\Debug\CloudStorage.pdb
+C:\Users\AAA\Documents\GitHub\CloudStorageProject\WindowsFormsApp2\WindowsFormsApp2\bin\Debug\LiveCharts.dll
+C:\Users\AAA\Documents\GitHub\CloudStorageProject\WindowsFormsApp2\WindowsFormsApp2\bin\Debug\LiveCharts.WinForms.dll
+C:\Users\AAA\Documents\GitHub\CloudStorageProject\WindowsFormsApp2\WindowsFormsApp2\bin\Debug\LiveCharts.Wpf.dll
+C:\Users\AAA\Documents\GitHub\CloudStorageProject\WindowsFormsApp2\WindowsFormsApp2\bin\Debug\LiveCharts.pdb
+C:\Users\AAA\Documents\GitHub\CloudStorageProject\WindowsFormsApp2\WindowsFormsApp2\bin\Debug\LiveCharts.xml
+C:\Users\AAA\Documents\GitHub\CloudStorageProject\WindowsFormsApp2\WindowsFormsApp2\bin\Debug\LiveCharts.WinForms.pdb
+C:\Users\AAA\Documents\GitHub\CloudStorageProject\WindowsFormsApp2\WindowsFormsApp2\bin\Debug\LiveCharts.WinForms.xml
+C:\Users\AAA\Documents\GitHub\CloudStorageProject\WindowsFormsApp2\WindowsFormsApp2\bin\Debug\LiveCharts.Wpf.pdb
+C:\Users\AAA\Documents\GitHub\CloudStorageProject\WindowsFormsApp2\WindowsFormsApp2\bin\Debug\LiveCharts.Wpf.xml
+C:\Users\AAA\Documents\GitHub\CloudStorageProject\WindowsFormsApp2\WindowsFormsApp2\obj\Debug\WindowsFormsApp2.Form2.resources
+C:\Users\AAA\Documents\GitHub\CloudStorageProject\WindowsFormsApp2\WindowsFormsApp2\obj\Debug\CloudStorage.exe
+C:\Users\AAA\Documents\GitHub\CloudStorageProject\WindowsFormsApp2\WindowsFormsApp2\obj\Debug\CloudStorage.pdb
