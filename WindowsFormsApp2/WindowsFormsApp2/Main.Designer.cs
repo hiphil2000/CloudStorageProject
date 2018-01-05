@@ -53,7 +53,6 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.resourcePanel = new System.Windows.Forms.Panel();
             this.panel7 = new System.Windows.Forms.Panel();
-            this.bunifuFlatButton1 = new Bunifu.Framework.UI.BunifuFlatButton();
             this.treeView1 = new System.Windows.Forms.TreeView();
             this.bunifuTextbox1 = new Bunifu.Framework.UI.BunifuTextbox();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
@@ -64,20 +63,20 @@
             this.pictureBox11 = new System.Windows.Forms.PictureBox();
             this.dashBoardPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.bunifuCards1 = new Bunifu.Framework.UI.BunifuCards();
-            this.label3 = new System.Windows.Forms.Label();
+            this.downloadAttempt = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.bunifuCards3 = new Bunifu.Framework.UI.BunifuCards();
-            this.label5 = new System.Windows.Forms.Label();
+            this.uploadFiles = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.pictureBox4 = new System.Windows.Forms.PictureBox();
             this.bunifuCards2 = new Bunifu.Framework.UI.BunifuCards();
-            this.label7 = new System.Windows.Forms.Label();
+            this.linkDownloadAttpemts = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.pictureBox5 = new System.Windows.Forms.PictureBox();
             this.bunifuCards4 = new Bunifu.Framework.UI.BunifuCards();
             this.dataUseageGauge = new LiveCharts.WinForms.SolidGauge();
-            this.label9 = new System.Windows.Forms.Label();
+            this.Capacity = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.bunifuCards5 = new Bunifu.Framework.UI.BunifuCards();
             this.dataStatPie = new LiveCharts.WinForms.PieChart();
@@ -89,6 +88,7 @@
             this.dragdropFile = new System.Windows.Forms.Panel();
             this.label31 = new System.Windows.Forms.Label();
             this.label30 = new System.Windows.Forms.Label();
+            this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this.contextMenuStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
@@ -474,56 +474,20 @@
             // panel7
             // 
             this.panel7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(14)))), ((int)(((byte)(134)))), ((int)(((byte)(173)))));
-            this.panel7.Controls.Add(this.bunifuFlatButton1);
             this.panel7.Controls.Add(this.treeView1);
             this.panel7.Controls.Add(this.bunifuTextbox1);
             this.panel7.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panel7.Location = new System.Drawing.Point(695, 0);
+            this.panel7.Location = new System.Drawing.Point(714, 0);
             this.panel7.Name = "panel7";
-            this.panel7.Size = new System.Drawing.Size(206, 561);
+            this.panel7.Size = new System.Drawing.Size(187, 561);
             this.panel7.TabIndex = 4;
-            // 
-            // bunifuFlatButton1
-            // 
-            this.bunifuFlatButton1.Activecolor = System.Drawing.Color.FromArgb(((int)(((byte)(9)))), ((int)(((byte)(78)))), ((int)(((byte)(100)))));
-            this.bunifuFlatButton1.BackColor = System.Drawing.Color.Transparent;
-            this.bunifuFlatButton1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.bunifuFlatButton1.BorderRadius = 0;
-            this.bunifuFlatButton1.ButtonText = "Upload";
-            this.bunifuFlatButton1.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.bunifuFlatButton1.DisabledColor = System.Drawing.Color.Gray;
-            this.bunifuFlatButton1.Iconcolor = System.Drawing.Color.Transparent;
-            this.bunifuFlatButton1.Iconimage = global::WindowsFormsApp2.Properties.Resources.Dashboard;
-            this.bunifuFlatButton1.Iconimage_right = null;
-            this.bunifuFlatButton1.Iconimage_right_Selected = null;
-            this.bunifuFlatButton1.Iconimage_Selected = null;
-            this.bunifuFlatButton1.IconMarginLeft = 0;
-            this.bunifuFlatButton1.IconMarginRight = 0;
-            this.bunifuFlatButton1.IconRightVisible = true;
-            this.bunifuFlatButton1.IconRightZoom = 0D;
-            this.bunifuFlatButton1.IconVisible = true;
-            this.bunifuFlatButton1.IconZoom = 90D;
-            this.bunifuFlatButton1.IsTab = false;
-            this.bunifuFlatButton1.Location = new System.Drawing.Point(0, 466);
-            this.bunifuFlatButton1.Name = "bunifuFlatButton1";
-            this.bunifuFlatButton1.Normalcolor = System.Drawing.Color.Transparent;
-            this.bunifuFlatButton1.OnHovercolor = System.Drawing.Color.FromArgb(((int)(((byte)(11)))), ((int)(((byte)(102)))), ((int)(((byte)(132)))));
-            this.bunifuFlatButton1.OnHoverTextColor = System.Drawing.Color.White;
-            this.bunifuFlatButton1.selected = false;
-            this.bunifuFlatButton1.Size = new System.Drawing.Size(206, 48);
-            this.bunifuFlatButton1.TabIndex = 2;
-            this.bunifuFlatButton1.Text = "Upload";
-            this.bunifuFlatButton1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.bunifuFlatButton1.Textcolor = System.Drawing.Color.White;
-            this.bunifuFlatButton1.TextFont = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.bunifuFlatButton1.Click += new System.EventHandler(this.bunifuFlatButton1_Click);
             // 
             // treeView1
             // 
             this.treeView1.Dock = System.Windows.Forms.DockStyle.Top;
             this.treeView1.Location = new System.Drawing.Point(0, 39);
             this.treeView1.Name = "treeView1";
-            this.treeView1.Size = new System.Drawing.Size(206, 427);
+            this.treeView1.Size = new System.Drawing.Size(187, 427);
             this.treeView1.TabIndex = 1;
             // 
             // bunifuTextbox1
@@ -536,18 +500,19 @@
             this.bunifuTextbox1.Icon = ((System.Drawing.Image)(resources.GetObject("bunifuTextbox1.Icon")));
             this.bunifuTextbox1.Location = new System.Drawing.Point(0, 0);
             this.bunifuTextbox1.Name = "bunifuTextbox1";
-            this.bunifuTextbox1.Size = new System.Drawing.Size(206, 39);
+            this.bunifuTextbox1.Size = new System.Drawing.Size(187, 39);
             this.bunifuTextbox1.TabIndex = 0;
             this.bunifuTextbox1.text = "";
+            this.bunifuTextbox1.OnTextChange += new System.EventHandler(this.bunifuTextbox1_OnTextChange);
             // 
             // flowLayoutPanel1
             // 
-            this.flowLayoutPanel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(214)))), ((int)(((byte)(215)))), ((int)(((byte)(165)))));
+            this.flowLayoutPanel1.AutoScroll = true;
             this.flowLayoutPanel1.Controls.Add(this.bunifuCards11);
             this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Left;
             this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(697, 561);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(718, 561);
             this.flowLayoutPanel1.TabIndex = 3;
             // 
             // bunifuCards11
@@ -591,12 +556,13 @@
             // 
             // label29
             // 
-            this.label29.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.label29.AutoEllipsis = true;
+            this.label29.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F);
             this.label29.Location = new System.Drawing.Point(23, 123);
             this.label29.Name = "label29";
             this.label29.Size = new System.Drawing.Size(132, 22);
             this.label29.TabIndex = 7;
-            this.label29.Text = "Uploads";
+            this.label29.Text = "123456789123456789123456789123";
             this.label29.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // pictureBox11
@@ -606,6 +572,7 @@
             this.pictureBox11.Size = new System.Drawing.Size(132, 99);
             this.pictureBox11.TabIndex = 4;
             this.pictureBox11.TabStop = false;
+            this.pictureBox11.Tag = "";
             // 
             // dashBoardPanel
             // 
@@ -627,7 +594,7 @@
             this.bunifuCards1.BorderRadius = 5;
             this.bunifuCards1.BottomSahddow = false;
             this.bunifuCards1.color = System.Drawing.Color.Tomato;
-            this.bunifuCards1.Controls.Add(this.label3);
+            this.bunifuCards1.Controls.Add(this.downloadAttempt);
             this.bunifuCards1.Controls.Add(this.label2);
             this.bunifuCards1.Controls.Add(this.pictureBox2);
             this.bunifuCards1.LeftSahddow = false;
@@ -639,15 +606,15 @@
             this.bunifuCards1.Size = new System.Drawing.Size(248, 111);
             this.bunifuCards1.TabIndex = 0;
             // 
-            // label3
+            // downloadAttempt
             // 
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F);
-            this.label3.Location = new System.Drawing.Point(103, 13);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(127, 62);
-            this.label3.TabIndex = 2;
-            this.label3.Text = "12354";
-            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.downloadAttempt.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F);
+            this.downloadAttempt.Location = new System.Drawing.Point(103, 13);
+            this.downloadAttempt.Name = "downloadAttempt";
+            this.downloadAttempt.Size = new System.Drawing.Size(127, 62);
+            this.downloadAttempt.TabIndex = 2;
+            this.downloadAttempt.Text = "0";
+            this.downloadAttempt.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label2
             // 
@@ -675,7 +642,7 @@
             this.bunifuCards3.BorderRadius = 5;
             this.bunifuCards3.BottomSahddow = false;
             this.bunifuCards3.color = System.Drawing.Color.Tomato;
-            this.bunifuCards3.Controls.Add(this.label5);
+            this.bunifuCards3.Controls.Add(this.uploadFiles);
             this.bunifuCards3.Controls.Add(this.label6);
             this.bunifuCards3.Controls.Add(this.pictureBox4);
             this.bunifuCards3.LeftSahddow = false;
@@ -687,15 +654,15 @@
             this.bunifuCards3.Size = new System.Drawing.Size(248, 111);
             this.bunifuCards3.TabIndex = 6;
             // 
-            // label5
+            // uploadFiles
             // 
-            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F);
-            this.label5.Location = new System.Drawing.Point(103, 13);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(127, 62);
-            this.label5.TabIndex = 2;
-            this.label5.Text = "12354";
-            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.uploadFiles.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F);
+            this.uploadFiles.Location = new System.Drawing.Point(103, 13);
+            this.uploadFiles.Name = "uploadFiles";
+            this.uploadFiles.Size = new System.Drawing.Size(127, 62);
+            this.uploadFiles.TabIndex = 2;
+            this.uploadFiles.Text = "0";
+            this.uploadFiles.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label6
             // 
@@ -723,7 +690,7 @@
             this.bunifuCards2.BorderRadius = 5;
             this.bunifuCards2.BottomSahddow = false;
             this.bunifuCards2.color = System.Drawing.Color.Tomato;
-            this.bunifuCards2.Controls.Add(this.label7);
+            this.bunifuCards2.Controls.Add(this.linkDownloadAttpemts);
             this.bunifuCards2.Controls.Add(this.label8);
             this.bunifuCards2.Controls.Add(this.pictureBox5);
             this.bunifuCards2.LeftSahddow = false;
@@ -735,15 +702,15 @@
             this.bunifuCards2.Size = new System.Drawing.Size(248, 111);
             this.bunifuCards2.TabIndex = 5;
             // 
-            // label7
+            // linkDownloadAttpemts
             // 
-            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F);
-            this.label7.Location = new System.Drawing.Point(103, 13);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(127, 62);
-            this.label7.TabIndex = 2;
-            this.label7.Text = "12354";
-            this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.linkDownloadAttpemts.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F);
+            this.linkDownloadAttpemts.Location = new System.Drawing.Point(103, 13);
+            this.linkDownloadAttpemts.Name = "linkDownloadAttpemts";
+            this.linkDownloadAttpemts.Size = new System.Drawing.Size(127, 62);
+            this.linkDownloadAttpemts.TabIndex = 2;
+            this.linkDownloadAttpemts.Text = "0";
+            this.linkDownloadAttpemts.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label8
             // 
@@ -772,7 +739,7 @@
             this.bunifuCards4.BottomSahddow = false;
             this.bunifuCards4.color = System.Drawing.Color.Tomato;
             this.bunifuCards4.Controls.Add(this.dataUseageGauge);
-            this.bunifuCards4.Controls.Add(this.label9);
+            this.bunifuCards4.Controls.Add(this.Capacity);
             this.bunifuCards4.Controls.Add(this.label10);
             this.bunifuCards4.LeftSahddow = false;
             this.bunifuCards4.Location = new System.Drawing.Point(25, 186);
@@ -791,15 +758,15 @@
             this.dataUseageGauge.TabIndex = 9;
             this.dataUseageGauge.Text = "solidGauge1";
             // 
-            // label9
+            // Capacity
             // 
-            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.label9.Location = new System.Drawing.Point(85, 238);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(127, 22);
-            this.label9.TabIndex = 5;
-            this.label9.Text = "12531 / 12354";
-            this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.Capacity.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.Capacity.Location = new System.Drawing.Point(13, 238);
+            this.Capacity.Name = "Capacity";
+            this.Capacity.Size = new System.Drawing.Size(274, 22);
+            this.Capacity.TabIndex = 5;
+            this.Capacity.Text = "0 / 0";
+            this.Capacity.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label10
             // 
@@ -857,10 +824,11 @@
             this.dragdropBack.Controls.Add(this.bunifuFlatButton3);
             this.dragdropBack.Controls.Add(this.bunifuFlatButton2);
             this.dragdropBack.Controls.Add(this.dragdropFile);
-            this.dragdropBack.Location = new System.Drawing.Point(431, 58);
+            this.dragdropBack.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dragdropBack.Location = new System.Drawing.Point(0, 0);
             this.dragdropBack.Name = "dragdropBack";
-            this.dragdropBack.Size = new System.Drawing.Size(478, 511);
-            this.dragdropBack.TabIndex = 16;
+            this.dragdropBack.Size = new System.Drawing.Size(901, 561);
+            this.dragdropBack.TabIndex = 17;
             this.dragdropBack.Visible = false;
             // 
             // bunifuFlatButton3
@@ -966,6 +934,10 @@
             this.label30.Text = "Selected files";
             this.label30.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // folderBrowserDialog1
+            // 
+            this.folderBrowserDialog1.Description = "Select download folder...";
+            // 
             // Main
             // 
             this.AllowDrop = true;
@@ -1043,19 +1015,19 @@
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.FlowLayoutPanel dashBoardPanel;
         private Bunifu.Framework.UI.BunifuCards bunifuCards1;
-        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label downloadAttempt;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.PictureBox pictureBox2;
         private Bunifu.Framework.UI.BunifuCards bunifuCards3;
-        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label uploadFiles;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.PictureBox pictureBox4;
         private Bunifu.Framework.UI.BunifuCards bunifuCards2;
-        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label linkDownloadAttpemts;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.PictureBox pictureBox5;
         private Bunifu.Framework.UI.BunifuCards bunifuCards4;
-        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label Capacity;
         private System.Windows.Forms.Label label10;
         private Bunifu.Framework.UI.BunifuCards bunifuCards5;
         private System.Windows.Forms.Label label11;
@@ -1072,7 +1044,6 @@
         private System.Windows.Forms.Label label29;
         private System.Windows.Forms.PictureBox pictureBox11;
         private System.Windows.Forms.PictureBox pictureBox12;
-        private Bunifu.Framework.UI.BunifuFlatButton bunifuFlatButton1;
         private Bunifu.Framework.UI.BunifuFlatButton bunifuFlatButton4;
         private System.Windows.Forms.Panel dragdropBack;
         private Bunifu.Framework.UI.BunifuFlatButton bunifuFlatButton3;
@@ -1080,5 +1051,6 @@
         private System.Windows.Forms.Panel dragdropFile;
         private System.Windows.Forms.Label label31;
         private System.Windows.Forms.Label label30;
+        private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog1;
     }
 }

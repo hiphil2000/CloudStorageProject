@@ -15,7 +15,14 @@ namespace WindowsFormsApp2
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Login());
+            try
+            {
+                Application.Run(new Login());
+            }
+            catch(Exception e)
+            {
+                MessageBox.Show("예외가 발생했습니다." + Environment.NewLine + e.Message + Environment.NewLine + e.StackTrace);
+            }
         }
     }
 }

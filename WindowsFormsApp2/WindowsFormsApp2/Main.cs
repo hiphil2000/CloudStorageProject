@@ -37,7 +37,6 @@ namespace WindowsFormsApp2
             initDashboard();
             dashBoardPanel.Visible = true;
             prevPanel = dashBoardPanel;
-            dragdropBack.BackColor = System.Drawing.Color.FromArgb(25, System.Drawing.Color.LightGray);
         }
 
         //taskbar code
@@ -141,6 +140,61 @@ namespace WindowsFormsApp2
         }
         private void initDashboard()
         {
+            DataSet ds = db.select(new[] { "count(*)" }, "tb_log", "logType = 'download' AND userSeq = " + userSeq);
+            DataTable dt = new DataTable();
+            dt = ds.Tables["tb_log"];
+            downloadAttempt.Text = dt.Rows[0]["count(*)"].ToString();
+
+            ds = db.select(new[] { "count(*)" }, "tb_log", "logType = 'upload' AND userSeq = " + userSeq);
+            dt = ds.Tables["tb_log"];
+            uploadFiles.Text = dt.Rows[0]["count(*)"].ToString();
+
+            ds = db.select(new[] { "fileName", "fileSize" }, "tb_data", "userSeq = " + userSeq);
+            dt = ds.Tables["tb_data"];
+            dataStatPie.LegendLocation = LegendLocation.Bottom;
+            dataUseageGauge.FromColor = Colors.LimeGreen;
+            dataUseageGauge.ToColor = Colors.Red;
+            dataUseageGauge.From = 0;
+            dataUseageGauge.To = 100;
+            float nowStorageSize = 0;
+            for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
+            {
+                nowStorageSize += int.Parse(dt.Rows[i]["fileSize"].ToString());
+                Console.WriteLine(int.Parse(dt.Rows[i]["fileSize"].ToString()));
+            }
+            nowStorageSize =  (float)Math.Round(nowStorageSize / 1024 / 1024, 2);
+            dataUseageGauge.Value = (int)(nowStorageSize / 1000000000 * 100);
+            Console.WriteLine(dataUseageGauge.Value + " or " + nowStorageSize);
+            string text = nowStorageSize + "MB / 1000MB";
+            Capacity.Text = text;
+
+            int imageCount = 0;
+            int documentCount = 0;
+            int videoCount = 0;
+            int otherCount = 0;
+
+            for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
+            {
+                string filetemp = dt.Rows[i]["fileName"].ToString().Split('.')
+                    [dt.Rows[i]["fileName"].ToString().Split('.').Length - 1];
+                switch (switchFileExtend(filetemp))
+                {
+                    case "picture":
+                        imageCount++;
+                        break;
+                    case "document":
+                        documentCount++;
+                        break;
+                    case "video":
+                        videoCount++;
+                        break;
+                    case "other":
+                        otherCount++;
+                        break;
+                }
+
+            }
+
             Func<ChartPoint, string> labelPoint = chartPoint =>
               string.Format("{0} ({1:P})", chartPoint.Y, chartPoint.Participation);
 
@@ -148,39 +202,35 @@ namespace WindowsFormsApp2
             {
                 new PieSeries
                 {
-                    Title = "Files",
-                    Values = new ChartValues<double> {4},
+                    Title = "Images",
+                    Values = new ChartValues<double> {imageCount},
                     DataLabels = true,
                     LabelPoint = labelPoint
                 },
                 new PieSeries
                 {
                     Title = "Documents",
-                    Values = new ChartValues<double> {4},
+                    Values = new ChartValues<double> {documentCount},
                     DataLabels = true,
                     LabelPoint = labelPoint
                 },
                 new PieSeries
                 {
                     Title = "Videos",
-                    Values = new ChartValues<double> {6},
+                    Values = new ChartValues<double> {videoCount},
                     DataLabels = true,
                     LabelPoint = labelPoint
                 },
                 new PieSeries
                 {
-                    Title = "Etc...",
-                    Values = new ChartValues<double> {2},
+                    Title = "Others",
+                    Values = new ChartValues<double> {otherCount},
                     DataLabels = true,
                     LabelPoint = labelPoint
                 }
             };
 
-            dataStatPie.LegendLocation = LegendLocation.Bottom;
-            dataUseageGauge.To = 100;
-            dataUseageGauge.Value = 50;
-            dataUseageGauge.FromColor = Colors.LimeGreen;
-            dataUseageGauge.ToColor = Colors.Red;
+
         }
 
         private void users_Click(object sender, EventArgs e)
@@ -198,19 +248,19 @@ namespace WindowsFormsApp2
             resourcePanel.Visible = true;
         }
 
-        static Control[] GetAllControlsUsingRecursive(Control containerControl)
+        static Control[] GetAllControlsUsingRecursive(Control containerControl, int mode)
         {
             List<Control> allControls = new List<Control>();
-
+            
             foreach (Control control in containerControl.Controls)
             {
                 //자식 컨트롤을 컬렉션에 추가한다
                 allControls.Add(control);
                 //만일 자식 컨트롤이 또 다른 자식 컨트롤을 가지고 있다면…
-                if (control.Controls.Count > 0)
+                if (control.Controls.Count > 0 && mode == 1)
                 {
                     //자신을 재귀적으로 호출한다
-                    allControls.AddRange(GetAllControlsUsingRecursive(control));
+                    allControls.AddRange(GetAllControlsUsingRecursive(control,mode));
                 }
             }
             //모든 컨트롤을 반환한다
@@ -219,49 +269,61 @@ namespace WindowsFormsApp2
 
         private void initResources()
         {
-            Control[] children = GetAllControlsUsingRecursive(resourcePanel);
-            
-            for(int i = 0; i < children.Length; i++)
+            Control[] children = GetAllControlsUsingRecursive(flowLayoutPanel1,1);
+
+            for (int i = 0; i < children.Length; i++)
             {
-                resourcePanel.Controls.Remove(children[i]);
+                flowLayoutPanel1.Controls.Remove(children[i]);
             }
 
-            DataSet ds = db.select(new[] { "fileName", "fileSize", "tb_user.userSeq" }, "tb_data, tb_user", "tb_data.userSeq = tb_user.userSeq");
+            DataSet ds = db.select(new[] { "fileName", "fileSize", "tb_user.userSeq", "dataSeq" }, "tb_data, tb_user", "tb_data.userSeq = tb_user.userSeq AND tb_user.userSeq = " + userSeq);
             DataTable dt = new DataTable();
 
             for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
             {
+                dt = ds.Tables["tb_data"];
                 Bunifu.Framework.UI.BunifuCards card = new Bunifu.Framework.UI.BunifuCards();
                 card.Size = new Size(178, 195);
-                card.Parent = resourcePanel;
+                card.Parent = flowLayoutPanel1;
+                card.Margin = new Padding(25, 25, 25, 25);
+                card.Name = dt.Rows[i]["fileName"].ToString();
+                Console.WriteLine(dt.Rows[i]["fileName"].ToString());
 
 
                 PictureBox picture = new PictureBox();
-                dt = ds.Tables["fileName"];
-                picture.Image = getThumbnail(dt.Rows[0][i].ToString());
+
+                picture.Image = getThumbnail(dt.Rows[i]["fileName"].ToString());
                 picture.Location = new Point(23, 21);
                 picture.Size = new Size(132, 99);
+                picture.Click += new System.EventHandler(this.download);
+                picture.Cursor = Cursors.Hand;
                 picture.Parent = card;
+                picture.Tag = dt.Rows[i]["dataSeq"].ToString();
+                picture.Name = dt.Rows[i]["fileName"].ToString();
 
                 Label title = new Label();
-                title.Text = dt.Rows[0][i].ToString();
+                title.Text = dt.Rows[i]["fileName"].ToString();
                 title.AutoSize = false;
                 title.Size = new Size(132, 99);
                 title.TextAlign = ContentAlignment.MiddleCenter;
                 title.Font = new Font(new System.Drawing.FontFamily("Microsoft Sans Serif"), 12F);
                 title.Location = new Point(23, 123);
+                title.AutoEllipsis = true;
+                labelFontScaling(title);
                 title.Parent = card;
 
                 Label createDate = new Label();
                 createDate.TextAlign = ContentAlignment.MiddleRight;
                 createDate.Font = new Font(new System.Drawing.FontFamily("Microsoft Sans Serif"), 8.5F);
                 createDate.Location = new Point(23, 145);
+                labelFontScaling(createDate);
                 createDate.Parent = card;
 
                 Label leastDate = new Label();
                 leastDate.TextAlign = ContentAlignment.MiddleRight;
                 leastDate.Font = new Font(new System.Drawing.FontFamily("Microsoft Sans Serif"), 8.5F);
                 leastDate.Location = new Point(23, 159);
+                labelFontScaling(leastDate);
                 leastDate.Parent = card;
 
                 card.Controls.Add(picture);
@@ -269,14 +331,71 @@ namespace WindowsFormsApp2
                 card.Controls.Add(createDate);
                 card.Controls.Add(leastDate);
 
-                resourcePanel.Controls.Add(card);
+                flowLayoutPanel1.Controls.Add(card);
             }
+        }
+
+        private void download(object sender, EventArgs e)
+        {
+            string name = ((PictureBox)sender).Tag.ToString();
+            byte[] file = db.downloadFile(name, userSeq);
+            if (folderBrowserDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                var folder = folderBrowserDialog1.SelectedPath;
+
+                string filename = System.IO.Path.Combine(folder, ((PictureBox)sender).Name);
+                System.IO.File.WriteAllBytes(filename, file);
+                System.Diagnostics.Process.Start(filename);
+                MessageBox.Show(folder + "경로에 " + ((PictureBox)sender).Name + "파일이 다운로드 되었습니다.", "성공");
+            }
+
+
+        }
+
+        private void labelFontScaling(Label label)
+        {
+            int textHeight = 22;
+            int length = label.Text.Length;
+
+            if (length < 13)
+            {
+
+                label.Font = new Font(label.Font.FontFamily, 12F);
+            }
+            else if (length < 20)
+            {
+                label.Font = new Font(label.Font.FontFamily, 7F);
+            }
+
         }
 
         private Image getThumbnail(string fileName)
         {
-            string switchFileName = fileName.Split('.')[0];
-            Image img;
+            string switchFileName = fileName.Split('.')[fileName.Split('.').Length - 1];
+            Image img = null;
+            switch (switchFileExtend(switchFileName))
+            {
+                case "picture":
+                    img = Properties.Resources.Picture;
+                    break;
+                case "document":
+                    img = Properties.Resources.Document;
+                    break;
+                case "video":
+                    img = Properties.Resources.Video;
+                    break;
+                case "other":
+                    img = Properties.Resources.Other;
+                    break;
+            }
+
+            return img;
+        }
+
+        private string switchFileExtend(string switchFileName)
+        {
+            string img;
+            Console.WriteLine(switchFileName + "!");
             switch (switchFileName)
             {
                 case "jpg":
@@ -288,7 +407,7 @@ namespace WindowsFormsApp2
                 case "dib":
                 case "tiff":
                 case "raw":
-                    img = Properties.Resources.Picture;
+                    img = "picture";
                     break;
                 case "txt":
                 case "rtf":
@@ -299,7 +418,7 @@ namespace WindowsFormsApp2
                 case "mdb":
                 case "html":
                 case "htm":
-                    img = Properties.Resources.Document;
+                    img = "document";
                     break;
                 case "avi":
                 case "mpg":
@@ -311,16 +430,15 @@ namespace WindowsFormsApp2
                 case "flv":
                 case "mov":
                 case "dat":
-                    img = Properties.Resources.Video;
+                    img = "video";
                     break;
                 default:
-                    img = Properties.Resources.Other;
+                    img = "other";
                     break;
             }
-
-
             return img;
         }
+
 
         private void closeButton_MouseHover(object sender, EventArgs e)
         {
@@ -342,8 +460,8 @@ namespace WindowsFormsApp2
                 pic.BackColor.G - 30 < 0 ? 0 : pic.BackColor.G - 30,
                 pic.BackColor.B - 30 < 0 ? 0 : pic.BackColor.B - 30);
         }
-        
-        
+
+
 
         private void bunifuFlatButton1_Click(object sender, EventArgs e)
         {
@@ -359,6 +477,7 @@ namespace WindowsFormsApp2
         {
             dragdropBack.Visible = true;
             dragdropFile.Visible = true;
+            dragdropBack.BringToFront();
             if (e.Data.GetDataPresent(DataFormats.FileDrop)) e.Effect = DragDropEffects.All;
         }
 
@@ -396,6 +515,9 @@ namespace WindowsFormsApp2
             if (result == DialogResult.Yes)
             {
                 db.uploadFile(fileOriginal, userSeq);
+                Console.WriteLine(userSeq);
+                initResources();
+                initDashboard();
             }
             Main_DragLeave(sender, e);
         }
@@ -403,6 +525,32 @@ namespace WindowsFormsApp2
         private void bunifuFlatButton4_Click(object sender, EventArgs e)
         {
             종료ToolStripMenuItem_Click(sender, e);
+        }
+
+        private void bunifuTextbox1_OnTextChange(object sender, EventArgs e)
+        {
+            Control[] children = GetAllControlsUsingRecursive(flowLayoutPanel1,0);
+
+            for (int i = 0; i < children.Length; i++)
+            {
+                Console.WriteLine(children[i].Name);
+                if (bunifuTextbox1.text.Equals(""))
+                {
+                    Console.WriteLine(children[i].Name +" -> visible");
+                    children[i].Visible = true;
+                }
+                else if(children[i].Name.Contains(bunifuTextbox1.text))
+                {
+                    Console.WriteLine(children[i].Name + " -> visible");
+                    children[i].Visible = true;
+
+                } else
+                {
+                    Console.WriteLine(children[i].Name + " -> invisible");
+                    children[i].Visible = false;
+
+                }
+            }
         }
     }
 }
