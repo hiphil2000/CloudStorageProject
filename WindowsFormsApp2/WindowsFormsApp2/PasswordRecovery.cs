@@ -94,7 +94,6 @@ namespace WindowsFormsApp2
                     MailMessage mail = new MailMessage();
                     SmtpClient SmtpServer = new SmtpClient("smtp.gmail.com");
                     tempPassword = new Random().Next().ToString();
-                    MessageBox.Show(tempPassword);
                     mail.From = new MailAddress("cloudstorage.emailservice@gmail.com");
                     mail.To.Add(id.Text);
                     mail.Subject = "[CloudStorage] 이메일인증을 완료해주십시오.";

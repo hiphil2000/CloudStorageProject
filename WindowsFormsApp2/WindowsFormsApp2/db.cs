@@ -11,7 +11,7 @@ namespace WindowsFormsApp2
 {
     class Db
     {
-        String connStr = "Server=localhost;Database=db_cloudstorage;Uid=root;Pwd=root;";
+        String connStr = "Server=10.26.139.201;Database=db_cloudstorage;Uid=root;Pwd=apmsetup;CharSet=utf8";
         MySqlConnection conn;
 
         public Db()
@@ -65,7 +65,10 @@ namespace WindowsFormsApp2
                 sql += "FROM " + from + " WHERE " + where;
                 Console.WriteLine(sql);
                 MySqlDataAdapter adpt = new MySqlDataAdapter(sql, conn);
-                adpt.Fill(ds, from);
+                if (from.Contains(','))
+                    adpt.Fill(ds, from.Substring(0, from.IndexOf(',')));
+                else
+                    adpt.Fill(ds, from);
                 if (ds.Tables.Count > 0)
                 {
                     return ds;
@@ -77,6 +80,96 @@ namespace WindowsFormsApp2
             }
 
             return null;
+        }
+
+        public void uploadFile(string[] filePath, int userSeq)
+        {
+            FileInfo fi;
+            foreach (string file in filePath)
+            {
+                fi = new FileInfo(file);
+                string fileTemp = file.Replace('\\', '/');
+                string filename = fi.Name;
+                long filesize = fi.Length;
+                int height, width;
+
+                try
+                {
+                    conn.Open();
+                    filename.Replace("'", "\\\'");
+                    filename.Replace("#", "");
+                    filename.Replace("/*", "");
+                    filename.Replace("*/", "");
+                    Console.WriteLine(filename);
+
+                    string sql = "INSERT INTO TB_Data (userSeq, fileName, fileSize, createDate, leastDate, favorateFlag, data, width, height)VALUES ("
+                        + userSeq + ", '" + filename + "', " + filesize + ", NOW(), NOW(), 0,LOAD_FILE" +
+                            "('" + fileTemp + "'), 1, 1)";
+                    Console.WriteLine(sql);
+                    MySqlCommand cmd = new MySqlCommand(sql, conn);
+                    cmd.ExecuteNonQuery();
+                    conn.Close();
+                    log("upload", userSeq);
+                }
+                catch (Exception e)
+                {
+                    conn.Close();
+                    Console.WriteLine(e.Message);
+                    Console.WriteLine(e.StackTrace);
+                }
+            }
+        }
+
+        public byte[] downloadFile(string fileSeq, int userSeq)
+        {
+            try
+            {
+                conn.Open();
+                string sql = "SELECT fileName, fileSize, data FROM tb_data WHERE dataSeq = " + fileSeq;
+
+                MySqlCommand cmd = new MySqlCommand(sql, conn);
+                MySqlDataReader datareader = cmd.ExecuteReader();
+                datareader.Read();
+
+                int fileSize = datareader.GetInt32(datareader.GetOrdinal("fileSize"));
+                byte[] rawdata = new byte[fileSize];
+
+                datareader.GetBytes(datareader.GetOrdinal("data"), 0, rawdata, 0, (Int32)fileSize);
+
+                datareader.Close();
+                conn.Close();
+                log("download", userSeq);
+                return rawdata;
+
+
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                Console.WriteLine(e.StackTrace);
+            }
+            return null;
+        }
+
+        public void log(string logType, int userSeq)
+        {
+            try
+            {
+                conn.Open();
+                string sql = @"INSERT INTO tb_log(userSeq, logDate, logType) VALUES(" + userSeq + ", NOW(), '" + logType + "');";
+                Console.WriteLine(sql);
+                MySqlCommand cmd = new MySqlCommand(sql, conn);
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                Console.WriteLine(e.StackTrace);
+            }
+            finally
+            {
+                conn.Close();
+            }
         }
 
         public Bitmap loadImage(int imgID)
@@ -129,6 +222,7 @@ namespace WindowsFormsApp2
             }
             catch (MySqlException ex)
             {
+                Console.WriteLine(ex.StackTrace);
                 return null;
             }
 
@@ -150,7 +244,7 @@ namespace WindowsFormsApp2
             {
                 conn.Open();
                 cmd = new MySqlCommand(sql, conn);
-                
+
                 data = cmd.ExecuteReader();
 
                 if (!data.HasRows)
@@ -198,11 +292,12 @@ namespace WindowsFormsApp2
             {
                 conn.Open();
                 string sql = @"INSERT INTO TB_User (userName, userId, userPw, userEmail, userPhone, maxCapacity, registDate)
-                                VALUES('" + name + "\',\'" + id + "\',\'" + pw + "\',\'" + email + "\',\'" + phone + "\', \'1000000000\',\'"+System.DateTime.Now.ToString("yyyy/MM/dd")+"\')";
+                                VALUES('" + name + "\',\'" + id + "\',\'" + pw + "\',\'" + email + "\',\'" + phone + "\', \'1000000000\',\'" + System.DateTime.Now.ToString("yyyy/MM/dd") + "\')";
                 Console.WriteLine(sql);
                 MySqlCommand cmd = new MySqlCommand(sql, conn);
                 cmd.ExecuteNonQuery();
-            } catch(Exception e)
+            }
+            catch (Exception e)
             {
                 Console.WriteLine(e.StackTrace);
             }
@@ -217,7 +312,7 @@ namespace WindowsFormsApp2
             try
             {
                 conn.Open();
-                string sql = @"update tb_user set userPw = '"+password+"' where userEmail = '"+ email +"';";
+                string sql = @"update tb_user set userPw = '" + password + "' where userEmail = '" + email + "';";
                 Console.WriteLine(sql);
                 MySqlCommand cmd = new MySqlCommand(sql, conn);
                 cmd.ExecuteNonQuery();

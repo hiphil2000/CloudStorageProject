@@ -140,5 +140,10 @@ namespace WindowsFormsApp2
                 toolTip1.SetToolTip(pictureBox2, "이메일 형식이 올바릅니다.");
             }
         }
+
+        private void pw_OnValueChanged(object sender, EventArgs e)
+        {
+            pw.isPassword = true;
+        }
     }
 }

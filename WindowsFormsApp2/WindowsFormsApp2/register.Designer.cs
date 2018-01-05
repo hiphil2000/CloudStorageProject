@@ -190,6 +190,7 @@
             this.pw.Size = new System.Drawing.Size(240, 33);
             this.pw.TabIndex = 14;
             this.pw.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.pw.OnValueChanged += new System.EventHandler(this.pw_OnValueChanged);
             // 
             // email
             // 
@@ -406,6 +407,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "register";
             this.Text = "register";
             this.panel1.ResumeLayout(false);

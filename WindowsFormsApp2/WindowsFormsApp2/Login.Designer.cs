@@ -313,6 +313,7 @@
             this.Controls.Add(this.label1);
             this.ForeColor = System.Drawing.SystemColors.ControlText;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Login";
             this.Text = "Login - CloudStorage";
             this.Load += new System.EventHandler(this.Login_Load);
@@ -333,7 +334,6 @@
         private System.Windows.Forms.LinkLabel linkLabel1;
         private System.Windows.Forms.LinkLabel linkLabel2;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.PictureBox closeButton;
         private System.Windows.Forms.PictureBox pictureBox3;
         private System.Windows.Forms.Timer timer1;
@@ -344,6 +344,7 @@
         private System.Windows.Forms.Label label4;
         private Bunifu.Framework.UI.BunifuFlatButton button1;
         private Bunifu.Framework.UI.BunifuFlatButton button2;
+        private System.Windows.Forms.PictureBox pictureBox1;
     }
 }
 
