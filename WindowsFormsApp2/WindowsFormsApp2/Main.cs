@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Net.NetworkInformation;
 using System.Resources;
@@ -160,11 +161,9 @@ namespace WindowsFormsApp2
             for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
             {
                 nowStorageSize += int.Parse(dt.Rows[i]["fileSize"].ToString());
-                Console.WriteLine(int.Parse(dt.Rows[i]["fileSize"].ToString()));
             }
             nowStorageSize =  (float)Math.Round(nowStorageSize / 1024 / 1024, 2);
-            dataUseageGauge.Value = (int)(nowStorageSize / 1000000000 * 100);
-            Console.WriteLine(dataUseageGauge.Value + " or " + nowStorageSize);
+            dataUseageGauge.Value = (int)nowStorageSize/10;
             string text = nowStorageSize + "MB / 1000MB";
             Capacity.Text = text;
 
@@ -338,14 +337,12 @@ namespace WindowsFormsApp2
         private void download(object sender, EventArgs e)
         {
             string name = ((PictureBox)sender).Tag.ToString();
-            byte[] file = db.downloadFile(name, userSeq);
             if (folderBrowserDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
+                
                 var folder = folderBrowserDialog1.SelectedPath;
-
                 string filename = System.IO.Path.Combine(folder, ((PictureBox)sender).Name);
-                System.IO.File.WriteAllBytes(filename, file);
-                System.Diagnostics.Process.Start(filename);
+                db.downloadFile(filename, name, userSeq);
                 MessageBox.Show(folder + "경로에 " + ((PictureBox)sender).Name + "파일이 다운로드 되었습니다.", "성공");
             }
 

@@ -11,14 +11,12 @@ namespace WindowsFormsApp2
 {
     class Db
     {
-        String connStr = "Server=localhost;Database=db_cloudstorage;Uid=root;Pwd=root;CharSet=utf8";
+        String connStr = "Server=175.114.81.71;Port=3306;Database=db_cloudstorage;Uid=root;Pwd=root;CharSet=utf8";
         MySqlConnection conn;
 
         public Db()
         {
             conn = new MySqlConnection(connStr);
-            /**     * DB와의 연결을 검사한다.     */
-
         }
 
         public bool connectChk()
@@ -48,6 +46,7 @@ namespace WindowsFormsApp2
 
         public DataSet select(string[] select, string from, string where)
         {
+            MySqlDataAdapter adpt;
             try
             {
                 DataSet ds = new DataSet();
@@ -64,18 +63,20 @@ namespace WindowsFormsApp2
                 }
                 sql += "FROM " + from + " WHERE " + where;
                 Console.WriteLine(sql);
-                MySqlDataAdapter adpt = new MySqlDataAdapter(sql, conn);
+                adpt = new MySqlDataAdapter(sql, conn);
                 if (from.Contains(','))
                     adpt.Fill(ds, from.Substring(0, from.IndexOf(',')));
                 else
                     adpt.Fill(ds, from);
                 if (ds.Tables.Count > 0)
                 {
+                    
                     return ds;
                 }
             }
             catch (Exception e)
             {
+                Console.WriteLine(e.Message);
                 Console.WriteLine(e.StackTrace);
             }
 
@@ -84,71 +85,96 @@ namespace WindowsFormsApp2
 
         public void uploadFile(string[] filePath, int userSeq)
         {
+            BinaryReader br;
+            FileStream fs;
             FileInfo fi;
-            foreach (string file in filePath)
-            {
-                fi = new FileInfo(file);
-                string fileTemp = file.Replace('\\', '/');
-                string filename = fi.Name;
-                long filesize = fi.Length;
-                int height, width;
 
+            foreach(string file in filePath)
+            {
                 try
                 {
-                    conn.Open();
-                    filename.Replace("'", "\\\'");
-                    filename.Replace("#", "");
-                    filename.Replace("/*", "");
-                    filename.Replace("*/", "");
-                    Console.WriteLine(filename);
-
-                    string sql = "INSERT INTO TB_Data (userSeq, fileName, fileSize, createDate, leastDate, favorateFlag, data, width, height)VALUES ("
-                        + userSeq + ", '" + filename + "', " + filesize + ", NOW(), NOW(), 0,LOAD_FILE" +
-                            "('" + fileTemp + "'), 1, 1)";
-                    Console.WriteLine(sql);
+                    fi = new FileInfo(file);
+                    string fileTemp = file.Replace('\\', '/');
+                    fs = new FileStream(fileTemp, FileMode.Open, FileAccess.Read);
+                    br = new BinaryReader(fs);
+                    string filename = fi.Name;
+                    long filesize = fi.Length;
+                    int height, width;
+                    string sql = "INSERT INTO TB_Data (userSeq, fileName, fileSize, createDate, leastDate, favorateFlag, data, width, height) " +
+                        "VALUES(@userSeq, @fileName, @fileSize, NOW(), NOW(), 0, @data, 1, 1)";
+                    byte[] data = br.ReadBytes((int)fs.Length);
                     MySqlCommand cmd = new MySqlCommand(sql, conn);
-                    cmd.ExecuteNonQuery();
+                    br.Close();
+                    fs.Close();
+
+                    cmd.Parameters.Add("@userSeq", MySqlDbType.Int16, 11);
+                    cmd.Parameters.Add("@fileName", MySqlDbType.VarChar, 255);
+                    cmd.Parameters.Add("@fileSize", MySqlDbType.Int16, 11);
+                    cmd.Parameters.Add("@data", MySqlDbType.Blob);
+
+                    cmd.Parameters["@userSeq"].Value = userSeq;
+                    cmd.Parameters["@fileName"].Value = filename;
+                    cmd.Parameters["@fileSize"].Value = filesize;
+                    cmd.Parameters["@data"].Value = data;
+                    conn.Open();
+                    int RowsAffected = cmd.ExecuteNonQuery();
+
+                    if (RowsAffected > 0)
+                    {
+                        Console.WriteLine("Image saved sucessfully!");
+                    }
                     conn.Close();
                     log("upload", userSeq);
                 }
                 catch (Exception e)
                 {
-                    conn.Close();
                     Console.WriteLine(e.Message);
-                    Console.WriteLine(e.StackTrace);
+                }
+                finally
+                {
+                    conn.Close();
                 }
             }
-        }
+            
 
-        public byte[] downloadFile(string fileSeq, int userSeq)
+        }
+        
+        public void downloadFile(string filename, string fileSeq, int userSeq)
         {
+            string sql = "SELECT data FROM tb_data WHERE dataSeq = " + fileSeq;
+            
             try
             {
                 conn.Open();
-                string sql = "SELECT fileName, fileSize, data FROM tb_data WHERE dataSeq = " + fileSeq;
-
                 MySqlCommand cmd = new MySqlCommand(sql, conn);
-                MySqlDataReader datareader = cmd.ExecuteReader();
-                datareader.Read();
-
-                int fileSize = datareader.GetInt32(datareader.GetOrdinal("fileSize"));
-                byte[] rawdata = new byte[fileSize];
-
-                datareader.GetBytes(datareader.GetOrdinal("data"), 0, rawdata, 0, (Int32)fileSize);
-
-                datareader.Close();
-                conn.Close();
-                log("download", userSeq);
-                return rawdata;
-
-
+                using (MySqlDataReader reader = cmd.ExecuteReader())
+                {
+                    reader.Read();
+                    FileStream outfile = new FileStream(filename, FileMode.OpenOrCreate, FileAccess.Write);
+                    using (System.IO.BinaryWriter writer = new System.IO.BinaryWriter(outfile))
+                    {
+                        long bufferSize = reader.GetBytes(0, 0, null, 0, 0);
+                        byte[] buffer = new byte[bufferSize];
+                        reader.GetBytes(0, 0, buffer, 0, (int)bufferSize);
+                        writer.Write(buffer, 0, (int)bufferSize);
+                        writer.Flush();
+                        conn.Close();
+                        writer.Close();
+                        outfile.Close();
+                        log("download", userSeq);
+                    }
+                }
             }
             catch (Exception e)
             {
                 Console.WriteLine(e.Message);
                 Console.WriteLine(e.StackTrace);
+                if (conn != null)
+                    conn.Close();
             }
-            return null;
+            
+
+
         }
 
         public void log(string logType, int userSeq)
@@ -156,20 +182,20 @@ namespace WindowsFormsApp2
             try
             {
                 conn.Open();
-                string sql = @"INSERT INTO tb_log(userSeq, logDate, logType) VALUES(" + userSeq + ", NOW(), '" + logType + "');";
+                string sql = @"INSERT INTO tb_log(userSeq, logDate, logType) VALUES(" + userSeq + ", NOW(), '" + logType + "')";
                 Console.WriteLine(sql);
                 MySqlCommand cmd = new MySqlCommand(sql, conn);
                 cmd.ExecuteNonQuery();
+                conn.Close();
             }
             catch (Exception e)
             {
                 Console.WriteLine(e.Message);
                 Console.WriteLine(e.StackTrace);
+                if(conn != null)
+                    conn.Close();
             }
-            finally
-            {
-                conn.Close();
-            }
+            
         }
 
         public Bitmap loadImage(int imgID)
